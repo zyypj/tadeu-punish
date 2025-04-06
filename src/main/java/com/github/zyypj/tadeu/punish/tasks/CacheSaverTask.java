@@ -1,5 +1,6 @@
 package com.github.zyypj.tadeu.punish.tasks;
 
+import com.github.zyypj.tadeu.punish.exceptions.StorageSavingException;
 import com.github.zyypj.tadeu.punish.storage.CacheManager;
 import com.github.zyypj.tadeu.punish.storage.StorageManager;
 import com.github.zyypj.tadeuBooter.api.minecraft.logger.Debug;
@@ -23,8 +24,8 @@ public class CacheSaverTask implements Runnable {
             cacheManager.saveCacheToDatabase(storageManager);
             Debug.log("&aCache saved successfully to the database.", true);
         } catch (Exception e) {
-            Debug.log("&cError saving cache: " + e.getMessage(), true);
-            e.printStackTrace();
+            Debug.log("&cErro ao salvar na database", false);
+            throw new StorageSavingException(e);
         }
     }
 

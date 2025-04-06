@@ -48,6 +48,7 @@ public final class PunishPlugin extends JavaPlugin {
             try {
                 cacheManager.saveCacheToDatabase(storageManager);
             } catch (Exception e) {
+                Debug.log("&cErro ao salvar na database", false);
                 throw new StorageSavingException(e);
             }
         }
@@ -93,6 +94,7 @@ public final class PunishPlugin extends JavaPlugin {
             CacheSaverTask.schedule(this, cacheManager, storageManager, 24000L, 24000L);
 
         } catch (Exception e) {
+            Debug.log("&cErro ao conectar a database", false);
             throw new StorageInitializationException(e);
         }
 
