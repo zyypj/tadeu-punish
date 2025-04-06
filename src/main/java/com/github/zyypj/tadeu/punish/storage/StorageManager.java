@@ -3,6 +3,7 @@ package com.github.zyypj.tadeu.punish.storage;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
 import com.github.zyypj.tadeu.punish.models.PunishType;
 import com.github.zyypj.tadeuBooter.api.database.DatabaseManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,8 +57,21 @@ public class StorageManager {
     }
 
     public void saveAllPunishments(Collection<PunishmentRecord> records) throws Exception {
-        for (PunishmentRecord record : records) {
-            savePunishment(record);
+        String query = "INSERT INTO punishments (uuid, ip, reason, proof, ban_timestamp, total_duration, punish_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = databaseManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            for (PunishmentRecord record : records) {
+                statement.setString(1, record.getUuid());
+                statement.setString(2, record.getIp());
+                statement.setString(3, record.getReason());
+                statement.setString(4, record.getProof());
+                statement.setLong(5, record.getBanTimestamp());
+                statement.setLong(6, record.getTotalDuration());
+                statement.setString(7, record.getPunishType().name());
+                statement.addBatch();
+            }
+            statement.executeBatch();
         }
     }
 }

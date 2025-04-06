@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PunishmentRecord {
+    private long id;
     private String uuid;
     private String ip;
     private String reason;

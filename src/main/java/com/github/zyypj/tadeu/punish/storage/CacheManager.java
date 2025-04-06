@@ -1,36 +1,54 @@
 package com.github.zyypj.tadeu.punish.storage;
 
-import com.github.zyypj.tadeu.punish.collections.PunishmentCache;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
+import lombok.Getter;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Getter
 public class CacheManager {
-    private final PunishmentCache punishmentCache;
+    private final Map<String, PunishmentRecord> uuidIndex;
+    private final Map<Long, PunishmentRecord> idIndex;
+    private long lastId;
 
     public CacheManager() {
-        this.punishmentCache = new PunishmentCache();
+        this.uuidIndex = new HashMap<>();
+        this.idIndex = new HashMap<>();
+        this.lastId = 0;
     }
 
     public void loadCache(List<PunishmentRecord> records) {
-        punishmentCache.addAll(records);
+        for (PunishmentRecord record : records) {
+            addPunishment(record);
+        }
     }
 
-    public PunishmentRecord getPunishment(String uuid) {
-        return punishmentCache.get(uuid).orElse(null);
+    public PunishmentRecord getPunishmentByUuid(String uuid) {
+        return uuidIndex.get(uuid);
+    }
+
+    public PunishmentRecord getPunishmentById(long id) {
+        return idIndex.get(id);
     }
 
     public void addPunishment(PunishmentRecord record) {
-        punishmentCache.add(record);
+        if (record.getId() == 0) {
+            record.setId(++lastId);
+        } else if (record.getId() > lastId) {
+            lastId = record.getId();
+        }
+        uuidIndex.put(record.getUuid(), record);
+        idIndex.put(record.getId(), record);
     }
 
-    public PunishmentCache getPunishmentCache() {
-        return punishmentCache;
+    public Collection<PunishmentRecord> getAllPunishments() {
+        return idIndex.values();
     }
 
     public void saveCacheToDatabase(StorageManager storageManager) throws Exception {
-        Collection<PunishmentRecord> records = punishmentCache.getAll();
-        storageManager.saveAllPunishments(records);
+        storageManager.saveAllPunishments(getAllPunishments());
     }
 }
