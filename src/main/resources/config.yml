@@ -1,0 +1,9 @@
+debug: false
+
+permissions:
+  punish: "punish.use"
+  mute: "punish.mute"
+  temp-mute: "punish.temp-mute"
+  ban: "punish.ban"
+  temp-ban: "punish.temp-ban"
+  no-proof: "punish.no-proof"
