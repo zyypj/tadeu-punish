@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class StorageManager {
@@ -51,6 +52,12 @@ public class StorageManager {
             statement.setLong(6, record.getTotalDuration());
             statement.setString(7, record.getPunishType().name());
             statement.executeUpdate();
+        }
+    }
+
+    public void saveAllPunishments(Collection<PunishmentRecord> records) throws Exception {
+        for (PunishmentRecord record : records) {
+            savePunishment(record);
         }
     }
 }

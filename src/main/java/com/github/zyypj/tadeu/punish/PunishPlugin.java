@@ -1,9 +1,11 @@
 package com.github.zyypj.tadeu.punish;
 
 import com.github.zyypj.tadeu.punish.exceptions.StorageInitializationException;
+import com.github.zyypj.tadeu.punish.exceptions.StorageSavingException;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
 import com.github.zyypj.tadeu.punish.storage.CacheManager;
 import com.github.zyypj.tadeu.punish.storage.StorageManager;
+import com.github.zyypj.tadeu.punish.tasks.CacheSaverTask;
 import com.github.zyypj.tadeuBooter.api.database.DatabaseManager;
 import com.github.zyypj.tadeuBooter.api.database.config.DatabaseConfig;
 import com.github.zyypj.tadeuBooter.api.database.json.DatabaseJsonConfigLoader;
@@ -42,7 +44,17 @@ public final class PunishPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        if (databaseManager != null && storageManager != null) {
+            try {
+                cacheManager.saveCacheToDatabase(storageManager);
+            } catch (Exception e) {
+                throw new StorageSavingException(e);
+            }
+        }
+
+        Debug.log("", false);
+        Debug.log("&e&lTadeu Punish&e desligado com sucesso!", false);
+        Debug.log("", false);
     }
     
     private void setupBooter() {
@@ -77,6 +89,8 @@ public final class PunishPlugin extends JavaPlugin {
 
             List<PunishmentRecord> records = storageManager.loadAllPunishments();
             cacheManager.loadCache(records);
+
+            CacheSaverTask.schedule(this, cacheManager, storageManager, 24000L, 24000L);
 
         } catch (Exception e) {
             throw new StorageInitializationException(e);

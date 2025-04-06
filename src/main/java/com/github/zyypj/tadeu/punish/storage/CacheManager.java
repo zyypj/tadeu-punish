@@ -2,6 +2,8 @@ package com.github.zyypj.tadeu.punish.storage;
 
 import com.github.zyypj.tadeu.punish.collections.PunishmentCache;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
+
+import java.util.Collection;
 import java.util.List;
 
 public class CacheManager {
@@ -25,5 +27,10 @@ public class CacheManager {
 
     public PunishmentCache getPunishmentCache() {
         return punishmentCache;
+    }
+
+    public void saveCacheToDatabase(StorageManager storageManager) throws Exception {
+        Collection<PunishmentRecord> records = punishmentCache.getAll();
+        storageManager.saveAllPunishments(records);
     }
 }
