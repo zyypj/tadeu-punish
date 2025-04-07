@@ -22,7 +22,7 @@ public class CacheSaverTask implements Runnable {
     public void run() {
         try {
             cacheManager.saveCacheToDatabase(storageManager);
-            Debug.log("&aCache saved successfully to the database.", true);
+            Debug.log("&aCache salvo na database com sucesso.", true);
         } catch (Exception e) {
             Debug.log("&cErro ao salvar na database", false);
             throw new StorageSavingException(e);
