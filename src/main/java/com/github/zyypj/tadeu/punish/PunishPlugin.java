@@ -3,7 +3,7 @@ package com.github.zyypj.tadeu.punish;
 import com.github.zyypj.tadeu.punish.exceptions.StorageInitializationException;
 import com.github.zyypj.tadeu.punish.exceptions.StorageSavingException;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
-import com.github.zyypj.tadeu.punish.storage.CacheManager;
+import com.github.zyypj.tadeu.punish.cache.CacheManager;
 import com.github.zyypj.tadeu.punish.storage.StorageManager;
 import com.github.zyypj.tadeu.punish.tasks.CacheSaverTask;
 import com.github.zyypj.tadeuBooter.api.database.DatabaseManager;

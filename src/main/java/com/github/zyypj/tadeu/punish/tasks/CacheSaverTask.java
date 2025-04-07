@@ -1,7 +1,7 @@
 package com.github.zyypj.tadeu.punish.tasks;
 
 import com.github.zyypj.tadeu.punish.exceptions.StorageSavingException;
-import com.github.zyypj.tadeu.punish.storage.CacheManager;
+import com.github.zyypj.tadeu.punish.cache.CacheManager;
 import com.github.zyypj.tadeu.punish.storage.StorageManager;
 import com.github.zyypj.tadeuBooter.api.minecraft.logger.Debug;
 import org.bukkit.plugin.java.JavaPlugin;

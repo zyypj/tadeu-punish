@@ -1,6 +1,7 @@
-package com.github.zyypj.tadeu.punish.storage;
+package com.github.zyypj.tadeu.punish.cache;
 
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
+import com.github.zyypj.tadeu.punish.storage.StorageManager;
 import lombok.Getter;
 
 import java.util.Collection;

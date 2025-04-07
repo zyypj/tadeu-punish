@@ -1,4 +1,4 @@
-package com.github.zyypj.tadeu.punish.collections;
+package com.github.zyypj.tadeu.punish.cache;
 
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
 import com.github.zyypj.tadeuBooter.api.collections.GenericCache;
