@@ -1,0 +1,28 @@
+{
+  "type": "HIKARI",
+  "mysql": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "mydatabase",
+    "user": "yourUsername",
+    "password": "yourPassword"
+  },
+  "hikari": {
+    "jdbcUrl": "jdbc:mysql://localhost:3306/mydatabase",
+    "user": "yourUsername",
+    "password": "yourPassword",
+    "maximumPoolSize": 10,
+    "minimumIdle": 2,
+    "connectionTimeout": 30000,
+    "idleTimeout": 600000,
+    "maxLifetime": 1800000,
+    "poolName": "MyHikariPool",
+    "leakDetectionThreshold": 2000,
+    "connectionTestQuery": "SELECT 1",
+    "autoCommit": true,
+    "validationTimeout": 5000
+  },
+  "sqlite": {
+    "filePath": "data/database.sqlite"
+  }
+}
