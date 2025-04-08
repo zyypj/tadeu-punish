@@ -60,6 +60,6 @@ public class HooksServices {
 
     private void registerGenericListener() {
         Debug.log("&cUtilizando sistema de chat genérico.", true);
-        plugin.getServer().getPluginManager().registerEvents(new GenericListeners(), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new GenericListeners(this), plugin);
     }
 }
