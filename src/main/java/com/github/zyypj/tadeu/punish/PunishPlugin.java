@@ -5,6 +5,7 @@ import com.github.zyypj.tadeu.punish.exceptions.StorageSavingException;
 import com.github.zyypj.tadeu.punish.files.MessagesController;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
 import com.github.zyypj.tadeu.punish.cache.CacheManager;
+import com.github.zyypj.tadeu.punish.services.HooksServices;
 import com.github.zyypj.tadeu.punish.services.MessagesServices;
 import com.github.zyypj.tadeu.punish.services.PunishServices;
 import com.github.zyypj.tadeu.punish.storage.StorageManager;
@@ -118,6 +119,8 @@ public final class PunishPlugin extends JavaPlugin {
 
         messagesServices = new MessagesServices(this);
         punishServices = new PunishServices(this);
+
+        new HooksServices(this).initializeHooks();
 
         Debug.log("&aArmazenamento carregado em " + stopwatch.stop() + "!", true);
         Debug.log("", true);

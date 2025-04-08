@@ -1,3 +1,4 @@
 name: tadeu-punish
 version: '${version}'
-main: com.github.zyypj.tadeu,punish.PunishPlugin
+main: com.github.zyypj.tadeu.punish.PunishPlugin
+softdepend: [nChat, LegendChat]

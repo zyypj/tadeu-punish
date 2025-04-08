@@ -45,7 +45,7 @@ messages:
   pessoal-message:
     MUTE:
       - ""
-      - "&c&lVocê foi mutado permanentemente!"
+      - "&c&lVocê está mutado permanentemente!"
       - ""
       - "&cMotivo: &f{REASON} &c- {PROOF}"
       - ""
@@ -55,7 +55,7 @@ messages:
       - ""
     TEMPMUTE:
       - ""
-      - "&c&lVocê foi mutado até o dia {END-DAY}!"
+      - "&c&lVocê está mutado até o dia {END-DAY}!"
       - ""
       - "&cMotivo: &f{REASON} &c- {PROOF}"
       - ""
@@ -65,7 +65,7 @@ messages:
       - ""
     IPMUTE:
       - ""
-      - "&c&lVocê foi mutado permanentemente!"
+      - "&c&lVocê está mutado permanentemente!"
       - ""
       - "&cMotivo: &f{REASON} &c- {PROOF}"
       - ""
@@ -77,20 +77,20 @@ messages:
       - ""
       - "&c&lREDE EXEMPLO"
       - ""
-      - "&cVocê foi banido permanentemente do servidor."
+      - "&cVocê está banido permanentemente do servidor."
       - "&cMotivo: &f{REASON} - {PROOF}"
       - "&cUse o id &e#{ID} &cpara criar revisão em discord.gg/example"
     TEMPBAN:
       - ""
       - "&c&lREDE EXEMPLO"
       - ""
-      - "&cVocê foi banido do servidor até o dia {END-DAY}."
+      - "&cVocê está banido do servidor até o dia {END-DAY}."
       - "&cMotivo: &f{REASON} - {PROOF}"
       - "&cUse o id &e#{ID} &cpara criar revisão em discord.gg/example"
     IPBAN:
       - ""
       - "&c&lREDE EXEMPLO"
       - ""
-      - "&cVocê foi banido e suas contas permanentemente do servidor."
+      - "&cVocê e suas contas estão banidas permanentemente do servidor."
       - "&cMotivo: &f{REASON} - {PROOF}"
       - "&cUse o id &e#{ID} &cpara criar revisão em discord.gg/example"

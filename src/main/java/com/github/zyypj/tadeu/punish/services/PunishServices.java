@@ -45,8 +45,22 @@ public class PunishServices {
 
     public PunishmentRecord getActivePunishment(String uuid) {
         PunishmentRecord record = cacheManager.getPunishmentByUuid(uuid);
-        return (record != null && isPunishmentActive(record)) ? record : null;
+        if (record == null) {
+            return null;
+        }
+
+        if (record.getTotalDuration() == 0) {
+            return record;
+        }
+
+        long remainingTime = getRemainingPunishmentTime(record);
+        if (remainingTime <= 0) {
+            removePunishment(uuid);
+            return null;
+        }
+        return record;
     }
+
 
     public List<PunishmentRecord> getPunishmentHistory(Player player) throws Exception {
         return getPunishmentHistory(player.getUniqueId().toString());
