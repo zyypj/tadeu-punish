@@ -27,7 +27,7 @@ public class StorageManager {
 
             while (resultSet.next()) {
                 PunishmentRecord record = new PunishmentRecord();
-                record.setId(resultSet.getLong("id")); // lê o ID
+                record.setId(resultSet.getLong("id"));
                 record.setUuid(resultSet.getString("uuid"));
                 record.setIp(resultSet.getString("ip"));
                 record.setReason(resultSet.getString("reason"));

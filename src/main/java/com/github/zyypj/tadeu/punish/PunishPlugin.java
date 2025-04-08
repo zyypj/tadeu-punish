@@ -2,8 +2,11 @@ package com.github.zyypj.tadeu.punish;
 
 import com.github.zyypj.tadeu.punish.exceptions.StorageInitializationException;
 import com.github.zyypj.tadeu.punish.exceptions.StorageSavingException;
+import com.github.zyypj.tadeu.punish.files.MessagesController;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
 import com.github.zyypj.tadeu.punish.cache.CacheManager;
+import com.github.zyypj.tadeu.punish.services.MessagesServices;
+import com.github.zyypj.tadeu.punish.services.PunishServices;
 import com.github.zyypj.tadeu.punish.storage.StorageManager;
 import com.github.zyypj.tadeu.punish.tasks.CacheSaverTask;
 import com.github.zyypj.tadeuBooter.api.database.DatabaseManager;
@@ -22,10 +25,14 @@ import java.util.List;
 public final class PunishPlugin extends JavaPlugin {
 
     private File databaseConfigFile;
+    private MessagesController messagesController;
 
     private DatabaseManager databaseManager;
     private StorageManager storageManager;
     private CacheManager cacheManager;
+
+    private MessagesServices messagesServices;
+    private PunishServices punishServices;
 
     @Override
     public void onEnable() {
@@ -35,8 +42,9 @@ public final class PunishPlugin extends JavaPlugin {
         Debug.log("&aIniciando Tadeu Punish...", false);
 
         setupFiles();
-
         setupStorage();
+
+        setupServices();
 
         Debug.log("&2&lTadeu Punish&2 iniciado em " + stopwatch.stop() + "!", false);
         Debug.log("", false);
@@ -70,6 +78,7 @@ public final class PunishPlugin extends JavaPlugin {
         Debug.log("&eCarregando arquivos...", true);
 
         databaseConfigFile = new File("database-config.json");
+        messagesController = new MessagesController(this);
         saveDefaultConfig();
 
         Debug.log("&aArquivos carregados em " + stopwatch.stop() + "!", true);
@@ -97,6 +106,18 @@ public final class PunishPlugin extends JavaPlugin {
             Debug.log("&cErro ao conectar a database", false);
             throw new StorageInitializationException(e);
         }
+
+        Debug.log("&aArmazenamento carregado em " + stopwatch.stop() + "!", true);
+        Debug.log("", true);
+    }
+
+    private void setupServices() {
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        Debug.log("", true);
+        Debug.log("&eCarregando armazenamento...", true);
+
+        messagesServices = new MessagesServices(this);
+        punishServices = new PunishServices(this);
 
         Debug.log("&aArmazenamento carregado em " + stopwatch.stop() + "!", true);
         Debug.log("", true);
