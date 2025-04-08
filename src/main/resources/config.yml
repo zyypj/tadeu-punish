@@ -7,3 +7,11 @@ permissions:
   ban: "punish.ban"
   temp-ban: "punish.temp-ban"
   no-proof: "punish.no-proof"
+
+broadcast:
+  BAN: true
+  IPBAN: true
+  TEMPBAN: true
+  MUTE: true
+  IPMUTE: true
+  TEMPMUTE: true
