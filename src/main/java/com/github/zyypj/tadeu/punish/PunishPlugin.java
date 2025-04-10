@@ -3,6 +3,7 @@ package com.github.zyypj.tadeu.punish;
 import com.github.zyypj.tadeu.punish.exceptions.StorageInitializationException;
 import com.github.zyypj.tadeu.punish.exceptions.StorageSavingException;
 import com.github.zyypj.tadeu.punish.files.MessagesController;
+import com.github.zyypj.tadeu.punish.listeners.PlayerListeners;
 import com.github.zyypj.tadeu.punish.models.PunishmentRecord;
 import com.github.zyypj.tadeu.punish.cache.CacheManager;
 import com.github.zyypj.tadeu.punish.services.HooksServices;
@@ -17,6 +18,7 @@ import com.github.zyypj.tadeuBooter.api.minecraft.inventories.manager.InventoryM
 import com.github.zyypj.tadeuBooter.api.minecraft.logger.Debug;
 import com.google.common.base.Stopwatch;
 import lombok.Getter;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -46,6 +48,7 @@ public final class PunishPlugin extends JavaPlugin {
         setupStorage();
 
         setupServices();
+        setupListeners();
 
         Debug.log("&2&lTadeu Punish&2 iniciado em " + stopwatch.stop() + "!", false);
         Debug.log("", false);
@@ -78,13 +81,20 @@ public final class PunishPlugin extends JavaPlugin {
         Debug.log("", true);
         Debug.log("&eCarregando arquivos...", true);
 
-        databaseConfigFile = new File("database-config.json");
+        databaseConfigFile = new File(getDataFolder(), "database-config.json");
+
+        if (!databaseConfigFile.exists()) {
+            getDataFolder().mkdirs();
+            saveResource("database-config.json", false);
+        }
+
         messagesController = new MessagesController(this);
         saveDefaultConfig();
 
         Debug.log("&aArquivos carregados em " + stopwatch.stop() + "!", true);
         Debug.log("", true);
     }
+
 
     private void setupStorage() {
         Stopwatch stopwatch = Stopwatch.createStarted();
@@ -96,6 +106,8 @@ public final class PunishPlugin extends JavaPlugin {
             databaseManager = new DatabaseManager(config);
 
             storageManager = new StorageManager(databaseManager);
+            storageManager.createPunishmentsTable();
+            
             cacheManager = new CacheManager();
 
             List<PunishmentRecord> records = storageManager.loadAllPunishments();
@@ -122,7 +134,7 @@ public final class PunishPlugin extends JavaPlugin {
 
         new HooksServices(this).initializeHooks();
 
-        Debug.log("&aArmazenamento carregado em " + stopwatch.stop() + "!", true);
+        Debug.log("&aArmazenamento carregados em " + stopwatch.stop() + "!", true);
         Debug.log("", true);
     }
 }
