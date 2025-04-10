@@ -137,4 +137,23 @@ public final class PunishPlugin extends JavaPlugin {
         Debug.log("&aArmazenamento carregados em " + stopwatch.stop() + "!", true);
         Debug.log("", true);
     }
+
+    private void setupListeners() {
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        Debug.log("", true);
+        Debug.log("&eCarregando eventos...", true);
+
+        registerListeners(
+                new PlayerListeners(this)
+        );
+
+        Debug.log("&aEventos carregados em " + stopwatch.stop() + "!", true);
+        Debug.log("", true);
+    }
+
+    private void registerListeners(Listener... listeners) {
+        for (Listener listener : listeners) {
+            getServer().getPluginManager().registerEvents(listener, this);
+        }
+    }
 }
