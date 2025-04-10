@@ -1,4 +1,5 @@
 messages:
+  permanent: "Permanente"
   broadcast:
     MUTE:
       - ""

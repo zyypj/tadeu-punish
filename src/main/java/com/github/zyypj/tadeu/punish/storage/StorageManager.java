@@ -7,6 +7,7 @@ import com.github.zyypj.tadeuBooter.api.database.DatabaseManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +17,23 @@ public class StorageManager {
 
     public StorageManager(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
+    }
+
+    public void createPunishmentsTable() throws Exception {
+        String sql = "CREATE TABLE IF NOT EXISTS punishments (" +
+                "id BIGINT NOT NULL PRIMARY KEY, " +
+                "uuid VARCHAR(36) NOT NULL, " +
+                "ip VARCHAR(45), " +
+                "reason TEXT, " +
+                "proof TEXT, " +
+                "ban_timestamp BIGINT, " +
+                "total_duration BIGINT, " +
+                "punish_type VARCHAR(20)" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        try (Connection connection = databaseManager.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+        }
     }
 
     public List<PunishmentRecord> loadAllPunishments() throws Exception {

@@ -31,7 +31,7 @@ public class MessagesServices {
         }
 
         String reason = record.getReason();
-        String duration = record.getTotalDuration() == 0 ? "Permanente" : plugin.getPunishServices().getRemainingPunishmentFancyTime(record).toFancyString();
+        String duration = record.getTotalDuration() == 0 ? plugin.getMessagesController().getMessage("permanent") : plugin.getPunishServices().getRemainingPunishmentFancyTime(record).toFancyString();
         String proof = record.getProof();
         String id = String.valueOf(record.getId());
         String endDay = "";
@@ -71,7 +71,7 @@ public class MessagesServices {
         String reason = record.getReason();
         String proof = record.getProof();
         String id = String.valueOf(record.getId());
-        String duration = record.getTotalDuration() == 0 ? "Permanente" : plugin.getPunishServices().getRemainingPunishmentFancyTime(record).toFancyString();
+        String duration = record.getTotalDuration() == 0 ? plugin.getMessagesController().getMessage("permanent") : plugin.getPunishServices().getRemainingPunishmentFancyTime(record).toFancyString();
         String endDay = "";
         if (punishType == PunishType.TEMPBAN || punishType == PunishType.TEMPMUTE) {
             endDay = plugin.getPunishServices().getBanExpiryDate(record);
@@ -87,5 +87,21 @@ public class MessagesServices {
                     .replace("{END-DAY}", endDay);
             punishedPlayer.sendMessage(formattedLine);
         }
+    }
+
+    public List<String> getPersonalPunishmentMessage(PunishmentRecord record) {
+        PunishType punishType = record.getPunishType();
+        String messageKey = "pessoal-message." + punishType.name();
+        List<String> messages = plugin.getMessagesController().getListMessage(messageKey);
+        if (messages.isEmpty()) {
+            return null;
+        }
+
+        Player punishedPlayer = plugin.getServer().getPlayer(record.getUuid());
+        if (punishedPlayer == null) {
+            return null;
+        }
+
+        return messages;
     }
 }
