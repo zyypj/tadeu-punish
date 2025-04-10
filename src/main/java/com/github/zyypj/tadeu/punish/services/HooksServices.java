@@ -4,7 +4,6 @@ import com.github.zyypj.tadeu.punish.PunishPlugin;
 import com.github.zyypj.tadeu.punish.hooks.generic.GenericListeners;
 import com.github.zyypj.tadeu.punish.hooks.legendChat.LegendChatListeners;
 import com.github.zyypj.tadeu.punish.hooks.nChat.nChatListeners;
-import com.github.zyypj.tadeu.punish.hooks.ultimateChat.UltimateChatListeners;
 import com.github.zyypj.tadeuBooter.api.minecraft.logger.Debug;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Listener;
@@ -28,10 +27,6 @@ public class HooksServices {
         if (havePlugin("LegendChat")) {
             Debug.log("&aPlugin LegendChat encontrado!", true);
             listeners.add(new LegendChatListeners(plugin));
-        }
-        if (havePlugin("UltimateChat")) {
-            Debug.log("&aPlugin UltimateChat encontrado!", true);
-            listeners.add(new UltimateChatListeners(plugin));
         }
 
         if (!listeners.isEmpty()) {
@@ -60,6 +55,6 @@ public class HooksServices {
 
     private void registerGenericListener() {
         Debug.log("&cUtilizando sistema de chat genérico.", true);
-        plugin.getServer().getPluginManager().registerEvents(new GenericListeners(this), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new GenericListeners(plugin), plugin);
     }
 }

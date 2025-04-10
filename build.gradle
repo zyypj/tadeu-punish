@@ -16,7 +16,6 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.38")
     compileOnly files('libs/legendchat.jar')
     compileOnly files('libs/nChat.jar')
-    compileOnly files('libs/ultimatechat.jar')
 
     annotationProcessor("org.projectlombok:lombok:1.18.38")
 
